@@ -6,13 +6,11 @@ import src.database.DB;
 
 public class ClientDAO {
 
-    private Connection connection;
-
     public void create() throws Exception
     {
         try {
 
-            connection = DB.connection();
+            Connection connection = DB.connection();
             
             String sql = "INSERT INTO Client(name,email) VALUES('Mouad','mouad.mouad')";
 
