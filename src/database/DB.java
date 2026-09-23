@@ -8,7 +8,7 @@ public class DB {
 
     public static Connection connection() throws SQLException {
 
-        String url = "jdbc:mysql://localhost:3306/Testing";
+        String url = "jdbc:mysql://localhost:3306/BankingAnalysis";
         String userName = "root";
         String password = "";
 
