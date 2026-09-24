@@ -1,6 +1,6 @@
 package src;
 
-import src.Presentation.Menu;
+import src.UI.Menu;
 
 public class Main {
 
