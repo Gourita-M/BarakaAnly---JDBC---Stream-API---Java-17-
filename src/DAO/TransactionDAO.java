@@ -8,6 +8,13 @@ import src.database.DB;
 
 public class TransactionDAO {
     
+    public static void createTransaction()
+    {
+        
+
+
+    }
+
     public static ResultSet getTransactionByUserEmail(String userEmail)
     {
         try {
