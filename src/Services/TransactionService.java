@@ -6,6 +6,11 @@ import java.util.Date;
 import src.DAO.TransactionDAO;
 
 public class TransactionService {
+
+    public static void deposit()
+    {
+        
+    }
     
     public static void viewTransactions(String userEmail){
 
