@@ -39,9 +39,9 @@ public class AccountDAO {
             if(result.next()){
                 do { 
                     balance = result.getDouble("balance");
-                } while (result.next());
+                } while(result.next());
             }else{
-                
+                System.out.println("There is No Account with this ID");
             }
 
             Connection connection = DB.connection();

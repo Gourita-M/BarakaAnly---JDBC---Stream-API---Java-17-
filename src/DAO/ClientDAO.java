@@ -1,6 +1,9 @@
 package src.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import src.Exceptions.ClientError;
 import src.database.DB;
 
@@ -22,9 +25,39 @@ public class ClientDAO {
         
     }
 
-    public void update()
+    public static int getClientId(String Email)
     {
+        int userId = 0;
 
+        try {
+            Connection connection = DB.connection();
+
+            String sql = "SELECT u.id FROM Client as u WHERE u.email = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setString(1, Email);
+
+            ResultSet result = ps.executeQuery();
+
+            
+
+            if(result.next()){
+                userId = result.getInt("id");
+            }
+
+            if(userId != 0){
+                return userId;
+            }else{
+                System.out.println("Client Not Found");
+                return userId;
+            }
+            
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            return userId;
+        }
     }
 
     public void getAll()
