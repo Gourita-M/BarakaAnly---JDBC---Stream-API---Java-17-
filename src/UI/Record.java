@@ -39,8 +39,8 @@ public class Record {
             
         }
     }
-    public static void depositMenu()
-    {   
+    public static void depositMenu(){
+           
         scan.nextLine();
 
         System.out.print("Please Enter Your Email: ");
