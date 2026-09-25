@@ -8,8 +8,7 @@ import src.database.DB;
 
 public class AccountDAO {
     
-    public static ResultSet getAccountsbyClientId(int ClientId)
-    {
+    public static ResultSet getAccountsbyClientId(int ClientId){
         try {
             Connection connection = DB.connection();
 
@@ -29,8 +28,7 @@ public class AccountDAO {
         }
     }
 
-    public static void deposit(int accountId, Double amount)
-    {
+    public static boolean deposit(int accountId, Double amount){
         Double balance = 0.00;
 
         try {
@@ -43,10 +41,13 @@ public class AccountDAO {
             }else{
                 System.out.println("There is No Account with this ID");
             }
+            if(amount < 0){
+                return false;
+            }
 
             Connection connection = DB.connection();
 
-            String sql = "UPDATE Account SET balance = ? WHERE clientId = ?";
+            String sql = "UPDATE Account SET balance = ? WHERE id = ?";
 
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -54,11 +55,12 @@ public class AccountDAO {
             ps.setInt(2, accountId);
             ps.executeUpdate();
 
-            System.out.println("You Have Added " + amount + " To Your Account.");
-            
+            //System.out.println("You Have Added " + amount + " To Your Account.");
+            return true;
+
         } catch (SQLException e) {
-            
             System.out.println(e);
+            return false;
         }
     }
 
@@ -82,4 +84,42 @@ public class AccountDAO {
             return null;
         }
     }
+
+    public static boolean withdrawal(int accountId, Double amount){
+        Double balance = 0.00;
+
+        try {
+            ResultSet result = getAccountBalance(accountId);
+
+            if(result.next()){
+                do { 
+                    balance = result.getDouble("balance");
+                } while(result.next());
+            }else{
+                System.out.println("There is No Account with this ID");
+            }
+
+            if(balance < amount){
+                return false;
+            }
+
+            Connection connection = DB.connection();
+
+            String sql = "UPDATE Account SET balance = ? WHERE id = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setDouble(1, balance - amount);
+            ps.setInt(2, accountId);
+            ps.executeUpdate();
+
+            //System.out.println("You Have Took " + amount + " From Your Account.");
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
 }
