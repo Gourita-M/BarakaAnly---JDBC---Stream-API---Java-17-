@@ -31,7 +31,7 @@ public class AccountDAO {
 
     public static void deposit(int accountId, Double amount)
     {
-        Double balance;
+        Double balance = 0.00;
 
         try {
             ResultSet result = getAccountBalance(accountId);
@@ -49,8 +49,16 @@ public class AccountDAO {
             String sql = "UPDATE Account SET balance = ? WHERE clientId = ?";
 
             PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setDouble(1, balance + amount);
+            ps.setInt(2, accountId);
+            ps.executeUpdate();
+
+            System.out.println("You Have Added " + amount + " To Your Account.");
             
         } catch (SQLException e) {
+            
+            System.out.println(e);
         }
     }
 
