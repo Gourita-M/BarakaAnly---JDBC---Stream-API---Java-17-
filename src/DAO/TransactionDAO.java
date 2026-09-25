@@ -8,16 +8,14 @@ import src.database.DB;
 
 public class TransactionDAO {
     
-    public static void createTransaction()
-    {
+    public static void createTransaction(){
         
-
-
     }
 
-    public static ResultSet getTransactionByUserEmail(String userEmail)
-    {
+    public static ResultSet getTransactionByUserEmail(String userEmail){
+
         try {
+            
             Connection connection = DB.connection();
 
             String sql = "SELECT u.id FROM Client as u WHERE u.email = ?";
