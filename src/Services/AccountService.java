@@ -46,4 +46,21 @@ public class AccountService  {
 
         return true;
     }
+
+    public static boolean transfer(int from, int to, Double amount){
+        try {
+
+            if(!AccountDAO.withdrawal(from, amount)){
+                return false;
+            }else if(!AccountDAO.deposit(to, amount)){
+                return false;
+            }
+            
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }
