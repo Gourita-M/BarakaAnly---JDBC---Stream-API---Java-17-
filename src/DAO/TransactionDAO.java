@@ -5,11 +5,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import src.database.DB;
+import src.entity.*;
 
 public class TransactionDAO {
     
-    public static void createTransaction(){
-        
+    public static boolean createTransaction(Transaction transaction){
+        try {
+            Connection connection = DB.connection();
+
+            String sql = "INSERT INTO Transaction(date,amount,type,location,accountId) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            
+            java.util.Date date = transaction.getDate();
+            ps.setDate(1, new java.sql.Date(date.getTime()));
+
+            ps.setDouble(2, transaction.getAmount());
+            ps.setString(3, transaction.getType().name());
+            ps.setString(4, transaction.getLocation());
+            ps.setInt(5, transaction.getAccountId());
+
+            ps.executeUpdate();
+            
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
     public static ResultSet getTransactionByUserEmail(String userEmail){
