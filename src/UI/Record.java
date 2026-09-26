@@ -2,8 +2,7 @@ package src.UI;
 
 import java.util.Scanner;
 import src.DAO.AccountDAO;
-import src.Services.AccountService;
-;
+import src.Services.*;
 
 public class Record {
 
@@ -68,6 +67,7 @@ public class Record {
         }else{
             System.out.println("Error Deposit");
         }
+        TransactionService.deposit(amount, accountId);
     }
 
     public static void withdrawalMenu(){
@@ -90,10 +90,11 @@ public class Record {
         Double amount = scan.nextDouble();
 
         if(AccountDAO.withdrawal(accountId, amount)){
-            System.out.println("You Have Took " + amount + "From Your Account");
+            System.out.println("You Have Took " + amount + " From Your Account");
         }else{
             System.out.println("Error Withdrawal");
         }
+        TransactionService.withdrawal(amount, accountId);
     }
 
     public static void transfer(){
@@ -122,5 +123,6 @@ public class Record {
         }else{
             System.out.println("Error Transfering Money");
         }
+        TransactionService.transfer(amount, from);
     }
 }
