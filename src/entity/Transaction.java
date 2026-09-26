@@ -11,8 +11,7 @@ public class Transaction {
     private String location;
     private int accountId;
 
-    public Transaction(int id, Date date, Double amount, TransactionType type, String location, int accountId) {
-        this.id = id;
+    public Transaction(Date date, Double amount, TransactionType type, String location, int accountId) {
         this.date = date;
         this.amount = amount;
         this.type = type;
