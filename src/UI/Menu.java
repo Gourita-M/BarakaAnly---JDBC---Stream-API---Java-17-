@@ -1,6 +1,7 @@
 package src.UI;
 
 import java.util.Scanner;
+import src.Services.ReportService;
 
 public class Menu {
 
@@ -30,6 +31,18 @@ public class Menu {
                     break;
                 case 2:
                     TransactionMenu.show();
+                    break;
+                case 3:
+                    scan.nextLine();
+                    System.out.print("Enter Your Email: ");
+                    String email = scan.nextLine();
+                    ReportService.accountAnalysis(email);
+                    break;
+                case 4:
+                    scan.nextLine();
+                    System.out.print("Enter Your Email: ");
+                    String alertEmail = scan.nextLine();
+                    ReportService.alerts(alertEmail);
                     break;
                 default:
                     System.out.println("Invalid Choice. Try Again");
