@@ -73,4 +73,22 @@ public class TransactionDAO {
 
         
     }
+
+    public static ResultSet getTransactionsByClientId(int clientId){
+        try {
+            Connection connection = DB.connection();
+
+            String sql = "SELECT t.date, t.amount, t.type FROM Transaction t " +
+                         "JOIN Account a ON t.accountId = a.id " +
+                         "WHERE a.clientId = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, clientId);
+
+            return ps.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }
